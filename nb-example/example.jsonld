@@ -1,0 +1,132 @@
+{
+    "@context": {
+      "nb": "http://neurobagel.org/vocab/",
+      "snomed": "http://purl.bioontology.org/ontology/SNOMEDCT/",
+      "nidm": "http://purl.org/nidash/nidm#",
+      "cogatlas": "https://www.cognitiveatlas.org/task/id/",
+      "ncit": "http://ncicb.nci.nih.gov/xml/owl/EVS/Thesaurus.owl#",
+      "Acquisition": "nb:Acquisition",
+      "identifier": "@id",
+      "hasContrastType": {
+        "@id": "nb:hasContrastType"
+      },
+      "schemaKey": "@type",
+      "Assessment": "nb:Assessment",
+      "Bagel": "nb:Bagel",
+      "BaseModel": "nb:BaseModel",
+      "ControlledTerm": "nb:ControlledTerm",
+      "Dataset": "nb:Dataset",
+      "hasLabel": {
+        "@id": "nb:hasLabel"
+      },
+      "hasPortalURI": {
+        "@id": "nb:hasPortalURI"
+      },
+      "hasSamples": {
+        "@id": "nb:hasSamples"
+      },
+      "Diagnosis": "nb:Diagnosis",
+      "Image": "nb:Image",
+      "ImagingSession": "nb:ImagingSession",
+      "hasFilePath": {
+        "@id": "nb:hasFilePath"
+      },
+      "hasAcquisition": {
+        "@id": "nb:hasAcquisition"
+      },
+      "PhenotypicSession": "nb:PhenotypicSession",
+      "hasAge": {
+        "@id": "nb:hasAge"
+      },
+      "hasSex": {
+        "@id": "nb:hasSex"
+      },
+      "isSubjectGroup": {
+        "@id": "nb:isSubjectGroup"
+      },
+      "hasDiagnosis": {
+        "@id": "nb:hasDiagnosis"
+      },
+      "hasAssessment": {
+        "@id": "nb:hasAssessment"
+      },
+      "Session": "nb:Session",
+      "Sex": "nb:Sex",
+      "Subject": "nb:Subject",
+      "hasSession": {
+        "@id": "nb:hasSession"
+      },
+      "SubjectGroup": "nb:SubjectGroup"
+    },
+    "identifier": "nb:97f6b8f4-6f48-4160-a9ca-d03d0a18dc62",
+    "hasLabel": "Working Memory and Reward in Children with and without Attention Deficit Hyperactivity Disorder (ADHD)",
+    "hasPortalURI": "https://github.com/OpenNeuroDatasets-JSONLD/ds002424.git",
+    "hasSamples": [
+      {
+        "identifier": "nb:7b76abf8-b3e5-4509-9f24-b6578beb1984",
+        "hasLabel": "sub-01",
+        "hasSession": [
+          {
+            "identifier": "nb:52feec90-382a-453c-be40-92cba22afea2",
+            "hasLabel": "ses-nb01",
+            "hasAge": 10.77,
+            "hasSex": {
+              "identifier": "snomed:248153007",
+              "schemaKey": "Sex"
+            },
+            "schemaKey": "PhenotypicSession"
+          },
+          {
+            "identifier": "nb:bc993657-b9f8-4ea0-9b33-6075b138bcf8",
+            "hasLabel": "ses-T1",
+            "hasFilePath": "/ds002424/sub-01/ses-T1",
+            "hasAcquisition": [
+              {
+                "identifier": "nb:43f43e74-550c-40c1-ab25-0187eebce80e",
+                "hasContrastType": {
+                  "identifier": "nidm:T1Weighted",
+                  "schemaKey": "Image"
+                },
+                "schemaKey": "Acquisition"
+              },
+              {
+                "identifier": "nb:cc20da93-56ce-4edb-9e26-22ac13f03de5",
+                "hasContrastType": {
+                  "identifier": "nidm:FlowWeighted",
+                  "schemaKey": "Image"
+                },
+                "schemaKey": "Acquisition"
+              },
+              {
+                "identifier": "nb:eca49f7e-0578-4cee-87ad-f4b7ff5b882f",
+                "hasContrastType": {
+                  "identifier": "nidm:FlowWeighted",
+                  "schemaKey": "Image"
+                },
+                "schemaKey": "Acquisition"
+              },
+              {
+                "identifier": "nb:d46ccf2d-431b-4b19-9369-2ff768b8e8d3",
+                "hasContrastType": {
+                  "identifier": "nidm:FlowWeighted",
+                  "schemaKey": "Image"
+                },
+                "schemaKey": "Acquisition"
+              },
+              {
+                "identifier": "nb:19d2132d-1aa4-4ebe-bd78-930375007119",
+                "hasContrastType": {
+                  "identifier": "nidm:FlowWeighted",
+                  "schemaKey": "Image"
+                },
+                "schemaKey": "Acquisition"
+              }
+            ],
+            "schemaKey": "ImagingSession"
+          }
+       ],
+    "schemaKey": "Subject"
+  }
+],
+"schemaKey": "Dataset"
+}

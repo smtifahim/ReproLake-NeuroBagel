@@ -1,0 +1,97 @@
+# This construct query code was tested against ds002424_ADHD_bids dataset. 
+# The query is designed to extract information about subjects, sessions, and acquisitions from the BIDS dataset.
+# The output triples of the graph are structured to represent the relationships between datasets, subjects, sessions, and acquisitions.
+# It uses NeuroBagel vocabularies and predicates to construct the output triples.
+# Version: 1.0 by Fahim Imam
+# Date: May 15, 2025
+
+prefix xsd: <http://www.w3.org/2001/XMLSchema#>
+prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix prov: <http://www.w3.org/ns/prov#>
+prefix ndar: <https://ndar.nih.gov/api/datadictionary/v2/dataelement/>
+prefix nidm: <http://purl.org/nidash/nidm#>
+prefix fs: <https://surfer.nmr.mgh.harvard.edu/>
+prefix dct: <http://purl.org/dc/terms/>
+prefix dctypes: <http://purl.org/dc/dcmitype/>
+prefix ilx: <http://uri.interlex.org/>
+prefix bids: <http://bids.neuroimaging.io/>
+PREFIX nb: <http://neurobagel.org/vocab/>
+PREFIX snomed: <http://purl.bioontology.org/ontology/SNOMEDCT/>
+
+CONSTRUCT
+{
+  ?dataset a nb:Dataset ;
+           nb:hasLabel ?dataset_name ;
+           nb:hasSamples ?subject .
+
+  ?subject a nb:Subject ;
+           nb:hasLabel ?sub_id ;
+           nb:hasSession ?session .
+
+  ?session a ?session_type ;
+           nb:hasLabel ?session_id ;
+           nb:hasAge ?age ;
+           nb:hasSex ?sex .
+
+  ?sex a nb:Sex .
+
+  # Only if imaging session
+  ?session nb:hasAcquisition ?acquisition .
+  ?acquisition a nb:Acquisition ;
+               nb:hasContrastType ?contrast_type .
+  ?contrast_type a nb:Image .
+}
+WHERE 
+{
+  # Link subject to session and dataset
+  ?dataset a bids:Dataset ;
+           prov:hadMember [prov:wasGeneratedBy ?as_activity] .
+  ?as_activity prov:qualifiedAssociation [prov:agent ?subject] ;
+               dct:isPartOf/dct:isPartOf [dctypes:title ?dataset_name] ;
+               dct:isPartOf ?session .
+  ?subject ndar:src_subject_id ?sub_id .
+  OPTIONAL { ?session bids:session_number ?session_id }
+
+  # check if this session has MRI modality
+  OPTIONAL {
+    ?as_entity prov:wasGeneratedBy ?as_activity ;
+               nidm:hadAcquisitionModality ?modality .
+    FILTER(?modality = nidm:MagneticResonanceImaging)
+  }
+
+  BIND(
+    IF(BOUND(?modality), nb:ImagingSession, nb:PhenotypicSession)
+    AS ?session_type
+  )
+
+  # Phenotypic info (valid for both session types)
+  OPTIONAL {
+    ?as_entity prov:wasGeneratedBy ?as_activity ;
+               ?sex_pred ?sex_value ;
+               ?age_pred ?age .
+    {
+      ?sex_pred a nidm:PersonalDataElement ;
+                nidm:isAbout <http://uri.interlex.org/base/ilx_0101292> .
+    }
+    {
+      ?age_pred a nidm:PersonalDataElement ;
+                nidm:isAbout ilx:ilx_0100400 .
+    }
+
+    BIND(
+      IF(?sex_value IN ("M", "1", "Male"^^xsd:string),
+         snomed:248153007,
+         snomed:248152002)
+      AS ?sex
+    )
+  }
+
+  # Imaging acquisition ONLY if session_type is ImagingSession
+  OPTIONAL {
+    FILTER(?session_type = nb:ImagingSession)
+
+    ?acquisition prov:wasGeneratedBy ?as_activity ;
+                 nidm:hadImageContrastType ?contrast_type .
+  }
+}
+ORDER BY ?sub_id
