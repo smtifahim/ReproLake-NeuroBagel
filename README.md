@@ -1,6 +1,6 @@
 # ReproLake-NeuroBagel Converter
 
-A Python tool that connects to a Stardog database, extracts data using SPARQL queries, and converts it to NeuroBagel-compatible JSON-LD format.
+The Python script 'rpl-np-converter.py' connects to the Stardog database, runs a  SPARQL construct query  against a given reprolake dataset (in bids version) , and converts the resulting graph into a NeuroBagel-compatible JSON-LD format.
 
 ## Dependencies
 
@@ -22,17 +22,19 @@ pip install stardog-client rdflib pyld
 
 1. Make sure your Stardog server is running
 2. Configure your Stardog connection details in `rpl-nb-converter.py`:
+
    - endpoint URL
    - username
    - password
    - database name
-
 3. Run the script:
+
 ```bash
 python rpl-nb-converter.py
 ```
 
 The script will:
+
 - Connect to the Stardog database
 - Execute the SPARQL query from `sparql/rpl-nb-construct.rq`
 - Convert the results to JSON-LD format
