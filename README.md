@@ -1,6 +1,6 @@
 # ReproLake-NeuroBagel Converter
 
-The Python script `rpl-np-converter.py` connects to the Stardog database, runs a  SPARQL construct query  against a given reprolake dataset stored in Stardog cloud, and converts the resulting graph into a NeuroBagel-compatible JSON-LD format.
+The Python script `rpl-nb-converter.py` connects to the Stardog database, runs a  SPARQL construct query  against a given reprolake dataset stored in Stardog cloud, and converts the resulting graph into a NeuroBagel-compatible JSON-LD format.
 
 ## Dependencies
 
